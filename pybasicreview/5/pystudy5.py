@@ -44,8 +44,25 @@ def test4():
     sys.stdout=temp
     print(buff.getvalue())
 
+def test5():
+    import struct
+    data=struct.pack('>i4shf',2,b'spam',3,1.234)
+    print(data)
+    file=open('data.bin','wb')
+    file.write(data)
+    file.close()
+    file=open('data.bin','rb')
+    bytes=file.read()
+    values=struct.unpack('>i4shf',data)
+    print(values)
+    file.close()
+    import os
+    os.remove('data2.bin')
+    os.rename('data.bin','data2.bin')
+    
+
 if __name__=='__main__':
     pass
-    test4()
+    test5()
     
     
