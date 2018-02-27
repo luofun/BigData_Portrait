@@ -45,7 +45,7 @@ def serverthread(clientsock):
         while True:
             bytes=file.read(blksz)
             if not bytes:break
-            sent=clientsock.send()
+            sent=clientsock.send(bytes)
             assert sent == len(bytes)
     except:
         print('Error downloading file on sever:',filename)
