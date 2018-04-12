@@ -14,9 +14,9 @@ import matplotlib.pyplot as plt
 
 def MakeWordsSet(words_file):
     words_set = set()
-    with open(words_file, 'r') as fp:
+    with open(words_file, 'r', encoding='UTF-8') as fp:
         for line in fp.readlines():
-            word = line.strip().decode("utf-8")
+            word = line.strip()
             if len(word)>0 and word not in words_set: # 去重
                 words_set.add(word)
     return words_set
@@ -64,13 +64,13 @@ def TextProcessing(folder_path, test_size=0.2):
     all_words_dict = {}
     for word_list in train_data_list:
         for word in word_list:
-            if all_words_dict.has_key(word):
+            if word in all_words_dict:
                 all_words_dict[word] += 1
             else:
                 all_words_dict[word] = 1
     # key函数利用词频进行降序排序
     all_words_tuple_list = sorted(all_words_dict.items(), key=lambda f:f[1], reverse=True) # 内建函数sorted参数需为list
-    all_words_list = list(zip(*all_words_tuple_list)[0])
+    all_words_list = list(zip(*all_words_tuple_list))[0]
 
     return all_words_list, train_data_list, test_data_list, train_class_list, test_class_list
 
